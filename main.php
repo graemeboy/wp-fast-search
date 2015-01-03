@@ -118,12 +118,13 @@ function wpfs_getPostTitles () {
 function wpfs_outputWidget ($placeholder) {
   ?>
   <style>
-    .wpfs-results {
+    ul.wpfs-results {
       display:none;
       position:absolute;
       left:0;
       z-index:3;
-      padding-bottom:0;
+      padding:0;
+      margin:0;
       top:100%;
       background-color: white;
       transition-property: display;
@@ -133,21 +134,21 @@ function wpfs_outputWidget ($placeholder) {
     .wpfs-open .wpfs-results {
       display: block;
     }
-    li.wpfs-result-item {
+    ul.wpfs-results li {
       width:100%;
       padding:0;
       margin:0;
       display:block;
       background-color: white;
+      list-style: none;
     }
-    li.wpfs-result-item a {
+    li.wpfs-result-item a, span.wpfs-no-results{
       text-align: left;
       padding:10px 10px 10px 15px;
       margin:0;
       display:block;
-      list-style: none;
       width:100%;
-      curssor:pointer;
+      cursor:pointer;
     }
     li.wpfs-result-item a:hover {
       text-decoration: none;
@@ -186,14 +187,6 @@ function wpfs_outputWidget ($placeholder) {
     );
     $('.wpfs-input').focus(function () {
       wpfsWrapper = $(this).parent();
-      if (Object.keys(postTitles).length === 0) {
-        // Get post titles
-        $.post(wpfsAjaxUrl, { action: 'wpfs_get_post_titles' },
-           function (data) {
-            postTitles = data;
-           }, "json"
-        );
-      }
     }).keyup(function (e) {
       var input = this;
       if (e.which === 13 || e.keyCode === 13) {
@@ -255,6 +248,10 @@ function wpfs_outputWidget ($placeholder) {
                 window.location.href=clicked.attr('href');
               });
             }
+          } else {
+            resultItem = document.createElement('li');
+            $(resultItem).append('<span class="wpfs-no-results">No results</span>');
+            resultsEl.append(resultItem);
           }
         }
       }

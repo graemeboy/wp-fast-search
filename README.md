@@ -19,3 +19,5 @@ therefore the plugin is performant.
 
 - Presents a white background for results, which might conflict with a
 theme's color scheme.
+
+- JavaScript and CSS are not cached (though they are quite small.)

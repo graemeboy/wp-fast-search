@@ -125,7 +125,8 @@ function wpfs_outputWidget ($placeholder) {
       z-index:3;
       padding:0;
       margin:0;
-      top:100%;
+      top:0;
+      width:100%;
       background-color: white;
       transition-property: display;
       transition-duration: 1s;
